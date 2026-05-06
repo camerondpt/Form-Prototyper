@@ -18,6 +18,7 @@
         .hl-widget { color: #FF79C6; }
         .hl-label { color: #8BE9FD; }
         .hl-logic { color: #4EC9B0; font-weight: bold; }
+        .hl-section-bg {background-color: rgba(255, 100, 100, 0.15);border-radius: 3px;padding: 10px 80px 0 10px;}
         #preview-container { width: 62%; background: #f5f6f7; display: flex; flex-direction: column; overflow: hidden; }
         #epic-header-sim { background: #dceef9; color: #0056b3; padding: 12px 20px; border-bottom: 1px solid #c5cdd4; font-weight: 600; }
         #preview-content { flex-grow: 1; padding: 20px; overflow-y: auto; }
@@ -190,19 +191,43 @@ text[We may be able to use positive/negative selectors in our EHR to trigger log
     <script>
         const editor = document.getElementById('editor'), highlightLayer = document.getElementById('highlight-layer'), preview = document.getElementById('preview');
         
-        function updateHighlights() {
-            let val = editor.value.replace(/&/g, "&amp;").replace(/</g, "&lt;");
-            const regex = /(section|header|button|checkbox|neg_pos|number|textbox|grid|text|paragraph)|(\[|\])|(#\w+)/g;
-            highlightLayer.innerHTML = val.replace(regex, (m, w, b, l) => {
-                if (w === 'section') return `<span class="hl-section">${w}</span>`;
-                if (w === 'header') return `<span class="hl-header">${w}</span>`;
-                if (w === 'text' || w === 'paragraph') return `<span class="hl-label">${w}</span>`;
-                if (w) return `<span class="hl-widget">${w}</span>`;
-                if (l) return `<span class="hl-logic">${l}</span>`;
-                return m;
-            });
-            highlightLayer.scrollTop = editor.scrollTop;
+        // function updateHighlights() {
+        //     let val = editor.value.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+        //     const regex = /(section|header|button|checkbox|neg_pos|number|textbox|grid|text|paragraph)|(\[|\])|(#\w+)/g;
+        //     highlightLayer.innerHTML = val.replace(regex, (m, w, b, l) => {
+        //         if (w === 'section') return `<span class="hl-section">${w}</span>`;
+        //         if (w === 'header') return `<span class="hl-header">${w}</span>`;
+        //         if (w === 'text' || w === 'paragraph') return `<span class="hl-label">${w}</span>`;
+        //         if (w) return `<span class="hl-widget">${w}</span>`;
+        //         if (l) return `<span class="hl-logic">${l}</span>`;
+        //         return m;
+        //     });
+        //     highlightLayer.scrollTop = editor.scrollTop;
+        // }
+function updateHighlights() {
+    let val = editor.value.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+    
+    // Updated Regex to separate the tag name from the content for conditional styling
+    const regex = /(section|header|button|checkbox|neg_pos|number|textbox|grid|text|paragraph)(\[[^\]]*\])|(#\w+)/g;
+    
+    highlightLayer.innerHTML = val.replace(regex, (match, tagName, bracketContent, logicTag) => {
+        if (logicTag) return `<span class="hl-logic">${logicTag}</span>`;
+        
+        let className = "hl-widget";
+        if (tagName === 'section') className = "hl-section";
+        if (tagName === 'header') className = "hl-header";
+        if (tagName === 'text' || tagName === 'paragraph') className = "hl-label";
+        
+        // ONLY wrap in the red background if it is a section tag
+        if (tagName === 'section') {
+            return `<span class="hl-section-bg"><span class="${className}">${tagName}</span>${bracketContent}</span>`;
         }
+        
+        // Otherwise, return the standard colored text without the red background
+        return `<span class="${className}">${tagName}</span>${bracketContent}`;
+    });
+    highlightLayer.scrollTop = editor.scrollTop;
+}
 
         function smartSplit(str) { return str.split(/(?<!\\)\//).map(p => p.replace(/\\\//g, '/').trim()); }
         
