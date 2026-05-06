@@ -70,20 +70,111 @@
         <div id="editor-wrapper">
             <div id="highlight-layer"></div>
             <textarea id="editor" spellcheck="false">
-section[Deep Cascading Logic]
-header[Button-to-Button Cascade]
-text[Select Path:] button[Option A#pathA/Option B#pathB]
+                section[Welcome]
+                header[What is this?]
+                text[This page is designed to allow for prototyping of forms being added and worked on. You can use it to share with co workers or to visualize things yourself.]
+                text[The left side of the page allows you to build elements, which are then shown on the right. Several types of input are allowed.]
+                neg_pos[negative/positive selectors] button[Buttons] checkbox[Check boxes] number[3] text[Number boxes] textbox[15] text[Text boxes]
+                paragraph[long-form word boxes]
 
-header[Conditional Content]
-text[A Details:]#pathA button[Sub-Choice 1/Sub-Choice 2]#pathA
-text[B Details:]#pathB checkbox[Confirm Box Trigger#showNote]#pathB
+                header[How does it work?]
+                text[Each type of element is added by typing the name of the element followed by brackets] [ ]
+                text[You can either type things in by hand, or use the buttons at the top left part of the screen which will type the element in for you.]
 
-paragraph[Triggered Note Field]#showNote
+                section[Detailed breakdown of each element]
+                header[Text]
+                text[Text added between the brackets of the "Text" element show up as plain text in the prototype. This can be added before or after other elements for labeling.]
+                text[For example, before/after a "Number Entry Box":] number[3] text[degrees]
+                header[Negative / Positive Buttons]
+                text[Adding words between the brackets of the Negative/Positive Button adds words to the Button itself.]
+                neg_pos[Like This] neg_pos[Or This] neg_pos[Or Even This]
 
-header[Full Feature Audit]
-grid[1] text[Status:] grid[2-3] neg_pos[WNL] grid[4-5] number[3]
-grid[1] text[Mini Box:] grid[2-5] textbox[2]
-paragraph[Clinical Summary Notes]</textarea>
+                header[Buttons]
+                text[Adding words between the brackets of a Button adds words to the Button itself.]
+                text[Save yourself some time when adding multiple Buttons by seperating them with a / within the brackets (see left side of the page)]
+                button[One] button[two] button[three]
+                button[one/two/three]
+                text[If you need a "/" character in a Button, you can "escape" it with the "\" character (see left side of the page)]
+                button[this \/ that]
+
+                header[Check Boxes]
+                text[Text in the brackets of a check box element adds words to the check box. The same time-saving system for Buttons works here as well]
+                checkbox[Like this/this/that/WFL/WNL/WTF]
+
+                header[Number Boxes]
+                text[Adding a Number between the brackets of the Number element determines how many digits the box is sized for.]
+                text[this box comfortably shows 2 digits] number[2]
+
+                header[Textboxes]
+                text[Adding a Number between the brackets of a Textbox determines how long the box is.]
+                text[Leaving the brackets blank will create a box that spans the page.] textbox[]
+                textbox[]
+                textbox[20]
+
+                header[Paragraph]
+                text[Adding words between the brackets of a Paragraph element creates a label that appears just above the box.]
+                paragraph[This is a label]
+
+                section[Grids]
+                text[The page has a built in Grid system that divides the page vertically into 5 Sections.]
+                text[Using the "Grid" element allows you to specify where elements listed after the Grid Text appear (see below).]
+
+                grid[1] text[Grid 1]
+                grid[2] text[Grid 2]
+                grid[3] text[Grid 3]
+                grid[4] text[Grid 4]
+                grid[5] text[Grid 5]
+                grid[1] text[Grid 1] grid[2] text[Grid 2] grid[3] text[Grid 3] grid[4] text[Grid 4] grid[5] text[Grid 5]
+
+                grid[1] textbox[10]
+                grid[2] textbox[10]
+                grid[3] textbox[10]
+                grid[4] textbox[10]
+                grid[5] textbox[10]
+                grid[1] textbox[10] grid[2] textbox[10] grid[3] textbox[10] grid[4] textbox[10] grid[5] textbox[10]
+
+                grid[1-2] textbox[]
+                grid[1-3] textbox[]
+                grid[3-4] textbox[]
+                grid[3] textbox[35]
+                grid[2] button[one/two] text[test] grid[3] button[one/two]
+                grid[2] button[one/two] grid[3] text[test] button[one/two]
+
+
+                text[Flexion:] grid[2] number[3] text[deg] grid[3-5] text[Comment:] textbox[]
+                text[Extension:] grid[2] number[3] text[deg] grid[3-5] text[Comment:] textbox[]
+                text[Right Rotation:] grid[2] number[3] text[deg] grid[3-5] text[Comment:] textbox[]
+                text[Left Rotation:] grid[2] number[3] text[deg] grid[3-5] text[Comment:] textbox[]
+                text[Right Side-bending:] grid[2] number[3] text[deg] grid[3-5] text[Comment:] textbox[]
+                text[Left Side-bending:] grid[2] number[3] text[deg] grid[3-5] text[Comment:] textbox[]
+
+                grid[1] text[errors can happen with spacing:] grid[2] textbox[30] grid[3] neg_pos[] grid[4] text[if you don't pay attention to Grid Numbers and Textbox sizing.]
+
+                section[Logic]
+                text[You can also build in logic to these forms, which is something you see in the HPI Section.]
+                text[When you select an imaging study, a Text box appears to allow you to document.]
+                text[To do this here, you can use matching hashtags (see left side of page). The first set should be inside brackets, the second outside]
+                button[Choice A#choiceA] button[Choice B#choiceB]
+                text[Choice A]#choiceA textbox[40]#choiceA checkbox[test]#choiceA
+                text[Choice B]#choiceB textbox[40]#choiceB checkbox[test 2]#choiceB
+
+                text[this is equivalent]
+                button[Choice A#choiceAalt/Choice B#choiceBalt]
+                text[Choice A]#choiceAalt textbox[40]#choiceAalt checkbox[test]#choiceAalt
+                text[Choice B]#choiceBalt textbox[40]#choiceBalt checkbox[test 2]#choiceBalt
+
+                text[You can stack tags to allow for several layers of logic, but it tends to work better if you use individual Button or Checkbox tags]
+                button[Organ#one] button[Tissue#a]#one button[Cell]#a
+                button[Animal#two] button[Reptile#b]#two button[crocodile]#b
+
+                checkbox[test#z] checkbox[test2#x]#z
+                text[X marks the spot]#x textbox[30]#x
+                button[Aye Matey!#y]#x
+                button[Yo Ho]#y
+
+                text[Only Buttons and Check boxes can be used to trigger logic at this time.]
+                text[We may be able to use positive/negative selectors in our EHR to trigger logic, but I'm not positive and I decided to not allow it in this prototype.]
+            </textarea>
         </div>
     </div>
     <div id="preview-container">
