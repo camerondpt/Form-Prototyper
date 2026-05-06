@@ -28,6 +28,7 @@
         .epic-section.collapsed .epic-section-body { display: none; }
         .epic-section-body { padding: 15px; }
         .epic-header { font-weight: bold; color: #333; margin: 15px 0 8px 0; font-size: 14px; }
+        .para-label { font-weight: normal; color: #333; margin: 10px 0 5px 0; font-size: 13px; display: block; }
         .epic-grid-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 8px; align-items: center; }
         .grid-item { display: flex; align-items: center; gap: 8px; min-width: 0; }
         .epic-row-container { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
@@ -232,7 +233,7 @@ text[We may be able to use positive/negative selectors in our EHR to trigger log
                 // Block rendering now relies safely on external CSS
                 if (cur.includes('paragraph[')) { 
                     const m = cur.match(/paragraph\[([^\]#]*)\]?(#\w+)?/);
-                    const paraHtml = `<div style="margin-top:10px; width:100%;"><label class="epic-header" style="display:block;margin-bottom:5px;">${m ? m[1] : ""}</label><textarea class="epic-textarea"></textarea></div>`;
+                    const paraHtml = `<div style="margin-top:10px; width:100%;"><label class="para-label" style="display:block;margin-bottom:5px;">${m ? m[1] : ""}</label><textarea class="epic-textarea"></textarea></div>`;
                     html += wrapLogic(paraHtml, m ? m[2] : null, true); 
                     return; 
                 }
